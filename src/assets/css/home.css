@@ -1,0 +1,22 @@
+.info-bar {
+    width: 100%;
+    height: 25px;
+    background: #1c1b1a;
+}
+.trending {
+    height: 100vh;
+    overflow-y: scroll;
+}
+.decoration {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+/*.top-trending {*/
+/*    display: flex;*/
+/*}*/
+/*.top-trending a {*/
+/*    color: #5488c7;*/
+/*    text-decoration: none;*/
+/*    background-color: initial;*/
+/*}*/

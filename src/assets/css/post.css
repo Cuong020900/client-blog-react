@@ -1,0 +1,59 @@
+.size-mini {
+    font-size: 10px;
+}
+.size-13 {
+    font-size: 13px;
+}
+.tags {
+    border-radius: 4px;
+    padding: 2px;
+    margin-right: 10px;
+    background-color: #f4f4f5;
+    border-color: #e9e9eb;
+    color: #909399;
+}
+
+/*! CSS Used from: https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css */
+.fa{display:inline-block;font:normal normal normal 14px/1 FontAwesome;font-size:inherit;text-rendering:auto;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;}
+.fa-twitter:before{content:"\f099";}
+.fa-facebook:before{content:"\f09a";}
+.social-sharing--small[data-v-1b6678dc]{font-size:25px;}
+.social-sharing--horizontal[data-v-1b6678dc]{display:flex;flex-direction:column;align-items:center;}
+.social-sharing--horizontal>.link[data-v-1b6678dc]{width:50px;height:50px;line-height:50px;text-align:center;border-radius:50%;border:1px solid #dbe3e8;}
+.social-sharing--horizontal>.link+.link[data-v-1b6678dc]{margin-top:.5rem;}
+.social-sharing a[data-v-1b6678dc]{cursor:pointer;
+    color: #6c757d;
+}
+.social-sharing a[data-v-1b6678dc] :hover{
+    color: #61dafb;
+}
+.social-sharing {
+    position: fixed;
+    top: 170px;
+}
+/*! CSS Used fontfaces */
+@font-face{font-family:'FontAwesome';src:url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/fonts/fontawesome-webfont.eot?v=4.7.0');src:url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/fonts/fontawesome-webfont.eot#iefix&v=4.7.0') format('embedded-opentype'),url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/fonts/fontawesome-webfont.woff2?v=4.7.0') format('woff2'),url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/fonts/fontawesome-webfont.woff?v=4.7.0') format('woff'),url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/fonts/fontawesome-webfont.ttf?v=4.7.0') format('truetype'),url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/fonts/fontawesome-webfont.svg?v=4.7.0#fontawesomeregular') format('svg');font-weight:normal;font-style:normal;}
+
+
+.post-content::first-line {
+    text-indent: 30px;
+}
+.post-content::first-letter {
+    font-weight: normal;
+    font-size: 40px;
+}
+
+.post-index-child a {
+    color: #282c34;
+}
+
+.link-active{
+    color: #0d5a6f !important;
+    /*font-size: 20px;*/
+}
+.child-path {
+    padding-left: 20px;
+}
+.index {
+    /*font-size: 20px;*/
+}
