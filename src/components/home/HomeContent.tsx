@@ -5,6 +5,7 @@ import '../../assets/css/blog.css'
 // import Thumbnail from "./thumbnail/Thumbnail";
 import PostOverview from "./components/PostOverview";
 import Trending from "./components/Trending";
+import Popup from "reactjs-popup";
 
 
 function HomeContent(props: any) {
@@ -20,6 +21,9 @@ function HomeContent(props: any) {
 
     return (
         <div>
+            <Popup open={true} position="center center">
+                <div className={'advertisement'}>Chưa có tài khoản? <a href="" className={'text-decoration-none'}>Đăng ký ngay</a></div>
+            </Popup>
             <Container>
                 <Row>
                     <Col className={'col-md-9'} >
