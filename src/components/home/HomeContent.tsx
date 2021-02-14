@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import '../../assets/css/home.css'
 import {Col, Container, Row} from "reactstrap";
 import '../../assets/css/blog.css'
@@ -6,9 +6,23 @@ import '../../assets/css/blog.css'
 import PostOverview from "./components/PostOverview";
 import Trending from "./components/Trending";
 import Popup from "reactjs-popup";
-
+import {StoreContext} from "../../utils/store";
+import axios from "axios";
 
 function HomeContent(props: any) {
+
+    const [listPost, setListPost] = useState([])
+    useEffect(() => {
+        let listPostTemp: any[] = []
+        axios.get('http://localhost:3000/posts')
+            .then(res => {
+                res.data.data.forEach((e: any) => {
+                    listPostTemp.push(PostOverview(e.username, e.title, e.id))
+                })
+                // @ts-ignore
+                setListPost(listPostTemp)
+            })
+    })
     let list_post = []
     for (let i = 0; i < 10; i++) {
         list_post.push(PostOverview())
@@ -19,9 +33,11 @@ function HomeContent(props: any) {
         list_post_trending.push(Trending())
     }
 
+    const store = useContext(StoreContext)
+
     return (
         <div>
-            <Popup open={true} position="center center">
+            <Popup open={store.store.loggedIn} position="center center">
                 <div className={'advertisement'}>Chưa có tài khoản? <a href="" className={'text-decoration-none'}>Đăng ký ngay</a></div>
             </Popup>
             <Container>
@@ -36,7 +52,7 @@ function HomeContent(props: any) {
                 <Row className={'mt-3'}>
                     <Col className={'col-md-9'}>
                         {
-                            list_post
+                            listPost
                         }
                     </Col>
                     <Col className={'col-md-3 trending'}>

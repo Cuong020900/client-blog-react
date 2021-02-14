@@ -1,54 +1,37 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import MDEditor from '@uiw/react-md-editor';
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {Col, Row} from "reactstrap";
 import '../../assets/css/post.css'
+import axios from "axios";
+import QueryString from 'query-string'
+import Avatar from "react-avatar";
 
-function Post () {
-    const [content, setContent] = React.useState("\n" +
-        "![](https://wp-api.agiratech.com/wp-content/uploads/2019/08/Listing-10-Rails-console-tips-shortcuts-to-boost-the-productivity.jpg)\n" +
-        "\n" +
-        "Trong Rails, ta có nhiều gem có thể hỗ trợ ta để làm việc với JSON serialization, sau đây mình xin được giới thiệu 1 vài gem, công cụ phổ biến.\n" +
-        "\n" +
-        "Ở đây, chúng ta sẽ dùng 2 models là Post và Comment. Để có thể test example code, bạn có thể khởi tạo projetc và generate models với những câu lệnh sau:\n" +
-        "\n" +
-        "```rails new jsontest\n" +
-        "cd jsontest\n" +
-        "bundle exec rake db:create\n" +
-        "bundle exec rails g model post title:string content:text published:boolean\n" +
-        "bundle exec rails g model comment author:string body:text post_id:integer\n" +
-        "bundle exec rake db:migrate\n" +
-        "```\n" +
-        "```\n" +
-        "# app/models/post.rb\n" +
-        "\n" +
-        "class Post < ActiveRecord::Base\n" +
-        "  has_many :comments\n" +
-        "end\n" +
-        "\n" +
-        "# app/models/comment.rb\n" +
-        "\n" +
-        "class Comment < ActiveRecord::Base\n" +
-        "  belongs_to :post\n" +
-        "end\n" +
-        "\n" +
-        "# Let's load the test data - bundle exec rails c\n" +
-        "\n" +
-        "post = Post.create!(title: \"Post\", content: \"content\", published: true)\n" +
-        "Comment.create!(post: post, author: \"Author\", body: \"Comment\")\n" +
-        "```\n" +
-        "\n" +
-        "\n" +
-        "\n" +
-        "\n")
+function Post (props: any) {
+    const [title, setTitle] = useState('Không có title')
+    const [content, setContent] = useState("Không có nội dung")
+    const [userInfo, setUserInfo] = useState("Trần Quốc Cường")
+
+    useEffect(() => {
+        let postId = props.location.search;
+        postId = QueryString.parse(postId)
+        axios.get('http://localhost:3000/posts/' + postId.id)
+            .then(res => {
+                setTitle(res.data.post.title)
+                setContent(res.data.post.content)
+                setUserInfo(res.data.post.username)
+            })
+            .catch(e => console.error(e))
+    }, [])
 
     return (
         <div>
             <Row>
                 {/*content*/}
                 <Col className={'col-md-1 text-left'}>
+                    <Avatar githubHandle="sitebase" size="50" round={true} className={'social-sharing-avt'} />
                     <div data-v-1b6678dc=""
-                         className="social-sharing mb-2 social-sharing--horizontal social-sharing--small"><a
+                         className="mt-3 social-sharing mb-2 social-sharing--horizontal social-sharing--small"><a
                         data-v-1b6678dc="" tooltip-placement="right" rel="noopener" className="link link--muted"
                         data-tippy="" data-original-title="Share a link to this page on Facebook"><i data-v-1b6678dc=""
                                                                                                      aria-hidden="true"
@@ -61,10 +44,10 @@ function Post () {
                 {/*post*/}
                 <Col className={'col-md-8 text-left'}>
                     {/*USER INFO*/}
-                    <div>Trần Quốc Cường</div>
+                    <div className={'ml-5'}><Avatar githubHandle="sitebase" size="50" round={true} /> {userInfo}</div>
                     {/*Title*/}
                     <div className={'mt-3 font-weight-bolder'}>
-                        <h2>Bean và ApplicationContext là gì trong Spring Boot?</h2>
+                        <h2>{title}</h2>
                     </div>
                     {/*tags*/}
                     <div>
