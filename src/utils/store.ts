@@ -4,6 +4,7 @@ interface Store {
     loggedIn: boolean;
     username: string;
     setUsername: any;
+    setLoggedIn: any;
 }
 
 export interface StoreContextData {

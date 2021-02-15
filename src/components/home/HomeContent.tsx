@@ -33,7 +33,7 @@ function HomeContent(props: any) {
 
     return (
         <div>
-            <Popup open={store.store.loggedIn} position="center center">
+            <Popup open={!store.store.loggedIn} position="center center">
                 <div className={'advertisement'}>Chưa có tài khoản? <a href="" className={'text-decoration-none'}>Đăng ký ngay</a></div>
             </Popup>
             <Container>

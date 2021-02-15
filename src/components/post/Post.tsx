@@ -292,7 +292,7 @@ function Post(props: any) {
                         <Col className={'col-md-1'} />
                         <Col className={'col-md-11 mt-5'}>
                             <div className="v-ctr-section related-posts-widget pb-2"><h4 className="post-section-title text-left">
-                                <strong>Related</strong></h4>
+                                <strong>More from <span className={'text-primary'}>{userInfo}</span></strong></h4>
                                 <div className={'list-related-posts'}>
                                     {
                                         listRelatedPost

@@ -1,4 +1,4 @@
-import React, {useContext, useEffect} from 'react';
+import React, {useContext} from 'react';
 import '../../assets/css/home.css'
 import {Col, Container, Row} from "reactstrap";
 import '../../assets/css/blog.css'
@@ -40,7 +40,15 @@ function Home(props: any) {
                             </a>
                             {
                                 store.store.loggedIn &&
-                                <Link className="p-2 link-secondary btn btn-sm btn-outline-secondary" to="/profile">{store.store.username}</Link>
+                                <div>
+                                    <Link className="p-2 link-secondary btn btn-sm btn-outline-secondary" to="/profile">{store.store.username}</Link>
+                                    <Link className="ml-2 p-2 link-secondary btn btn-sm btn-outline-secondary" to="/"
+                                          onClick={() => {
+                                              localStorage.removeItem("jwt")
+                                              store.store.setLoggedIn(false)
+                                          }
+                                          }>Sign out</Link>
+                                </div>
                             }
                             {
                                 !store.store.loggedIn &&
