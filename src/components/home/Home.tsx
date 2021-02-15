@@ -20,7 +20,7 @@ function Home(props: any) {
     return (
         <div>
             <Container className={'home'}>
-                <header className="blog-header py-3">
+                <header className="blog-header py-3 sticky-inner">
                     <Row className="row flex-nowrap justify-content-between align-items-center">
                         <Col className="col-4 pt-1 text-left">
                             <a className="link-secondary" href="#">Subscribe</a>

@@ -7,6 +7,9 @@
 .size-medium {
     font-size: 20px;
 }
+.content-area {
+    max-width: 100%;
+}
 .tags {
     border-radius: 4px;
     padding: 2px;
@@ -57,8 +60,14 @@
     color: #0d5a6f !important;
     /*font-size: 20px;*/
 }
-.child-path {
+.child-path-lv-2 {
     padding-left: 20px;
+}
+.child-path-lv-3 {
+    padding-left: 40px;
+}
+.child-path-lv-4 {
+    padding-left: 60px;
 }
 .index {
     /*font-size: 20px;*/
