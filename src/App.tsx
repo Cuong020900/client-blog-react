@@ -18,6 +18,15 @@ function App() {
     const [username, setUsername] = useState('')
     const [loggedIn, setLoggedIn] = useState('')
 
+    let jwt = localStorage.getItem('jwt') || ''
+    axios.defaults.headers.common['Authorization'] = 'Bearer ' + jwt
+    axios.get('http://localhost:3000/user-info')
+        .then(res => {
+            initStore.store.setUsername(res.data.user.name)
+            initStore.store.setLoggedIn(true)
+        })
+        .catch(err => console.log(err))
+
     const initStore: any = {
         store: {
             username: username,
@@ -26,17 +35,6 @@ function App() {
             setLoggedIn: setLoggedIn
         }
     }
-
-    useEffect( () => {
-        let jwt = localStorage.getItem('jwt') || ''
-        axios.defaults.headers.common['Authorization'] = 'Bearer ' + jwt
-        axios.get('http://localhost:3000/user-info')
-            .then(res => {
-                initStore.store.setUsername(res.data.user.name)
-                initStore.store.setLoggedIn(true)
-            })
-            .catch(err => console.log(err))
-    }, [])
 
   return (
       <StoreContext.Provider value={initStore}>
