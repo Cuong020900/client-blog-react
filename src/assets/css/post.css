@@ -104,8 +104,17 @@
     /*   background-color: #9f9f9f; */
 }
 
+.list-related-posts {
+    display: flex;
+    margin: 0 -5px;
+    flex-wrap: wrap;
+    overflow: hidden;
+    position: relative;
+}
 
-
+.test {
+    height: 400px;
+}
 
 
 

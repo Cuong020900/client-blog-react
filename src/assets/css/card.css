@@ -1,0 +1,10 @@
+.related-posts-box {
+
+}
+
+.item {
+    padding: 5px;
+    flex: 50%;
+    width: 25%;
+    height: 100%;
+}

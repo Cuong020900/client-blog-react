@@ -22,11 +22,7 @@ function HomeContent(props: any) {
                 // @ts-ignore
                 setListPost(listPostTemp)
             })
-    })
-    let list_post = []
-    for (let i = 0; i < 10; i++) {
-        list_post.push(PostOverview())
-    }
+    }, [])
 
     let list_post_trending = []
     for (let i = 0; i < 16; i++) {

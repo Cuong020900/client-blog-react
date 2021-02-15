@@ -1,5 +1,5 @@
 import React, {useEffect, useRef, useState} from 'react';
-import {Col, Row} from "reactstrap";
+import {Col, Container, Row} from "reactstrap";
 import '../../assets/css/post.css'
 import '../../assets/css/sticky.css'
 import axios from "axios";
@@ -11,6 +11,8 @@ import MarkdownView from "react-showdown";
 import Showdown from "showdown";
 import showdownToc from "showdown-toc";
 import MDEditor from '@uiw/react-md-editor';
+import PostOverview from "../home/components/PostOverview";
+import PostRelated from "./related/PostRelated";
 
 function Post(props: any) {
     const [title, setTitle] = useState('Không có title')
@@ -18,10 +20,12 @@ function Post(props: any) {
     const [content2, setContent2] = useState("Không có nội dung")
     const [userInfo, setUserInfo] = useState("Trần Quốc Cường")
     const [tocHTML, setTocHTML] = useState<any>(null)
+    const [reloadPost, setReloadPost] = useState(0)
     const toc: any[] = [];
     const showdown = new Showdown.Converter({extensions: [showdownToc({toc})]});
     let result: any;
 
+    const [listRelatedPost, setListRelatedPost] = useState<any>([])
 
     // sticky
     const [isSticky, setSticky] = useState(false);
@@ -83,10 +87,21 @@ function Post(props: any) {
                 })
                 setContent2(result)
                 setTocHTML(html.outerHTML)
+
+                // related post
+                let listPostTemp: any[] = []
+                let count = 0
+                res.data.related.forEach((e: any) => {
+                    if (count++ < 4) {
+                        listPostTemp.push(PostRelated(e.username, e.title, e.id, setReloadPost))
+                    }
+                })
+                setListRelatedPost(listPostTemp)
+
             })
             .catch(e => console.error(e))
 
-    }, [])
+    }, [reloadPost])
 
     return (
         <div>
@@ -96,11 +111,18 @@ function Post(props: any) {
                     <Avatar githubHandle="sitebase" size="50" round={true} className={'social-sharing-avt'}/>
                     <div data-v-1b6678dc=""
                          className="mt-3 social-sharing mb-2 social-sharing--horizontal social-sharing--small"><a
+                        onClick={e => {
+                            window.open(`https://facebook.com/sharer/sharer.php?u=${encodeURI(window.location.href)}`, '_blank')
+                        }}
                         data-v-1b6678dc="" tooltip-placement="right" rel="noopener" className="link link--muted"
                         data-tippy="" data-original-title="Share a link to this page on Facebook"><i data-v-1b6678dc=""
                                                                                                      aria-hidden="true"
                                                                                                      className="fa fa-facebook"></i></a>
+
                         <a data-v-1b6678dc="" tooltip-placement="right" rel="noopener" className="link link--muted"
+                           onClick={e => {
+                               window.open(`https://facebook.com/sharer/sharer.php?u=${encodeURI(window.location.href)}`, '_blank')
+                           }}
                            data-tippy="" data-original-title="Share a link to this page on Twitter"><i
                             data-v-1b6678dc="" aria-hidden="true" className="fa fa-twitter"></i></a>
                     </div>
@@ -262,7 +284,25 @@ function Post(props: any) {
                         </div>
                     </div>
                 </Col>
+
+
             </Row>
+                <Container className={'mt-5'}>
+                    <Row>
+                        <Col className={'col-md-1'} />
+                        <Col className={'col-md-11 mt-5'}>
+                            <div className="v-ctr-section related-posts-widget pb-2"><h4 className="post-section-title text-left">
+                                <strong>Related</strong></h4>
+                                <div className={'list-related-posts'}>
+                                    {
+                                        listRelatedPost
+                                    }
+                                </div>
+                            </div>
+                        </Col>
+                    </Row>
+
+                </Container>
         </div>
     );
 }
