@@ -12,7 +12,8 @@ import {
 } from 'react-router-dom';
 import {StoreContext, storeContextDefaultValue} from './utils/store';
 import axios from "axios";
-
+// @ts-ignore
+import { ReactTitle } from 'react-meta-tags'
 function App() {
 
     const [username, setUsername] = useState('')
@@ -39,6 +40,7 @@ function App() {
   return (
       <StoreContext.Provider value={initStore}>
           <div className="App">
+              <ReactTitle title="Viblo Pha ke"/>
               <Router>
                   <ToastContainer/>
                   <ScrollToTop smooth/>
