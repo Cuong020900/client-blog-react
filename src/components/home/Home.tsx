@@ -148,7 +148,7 @@ function Home(props: any) {
 
                 <div>
                     <Switch>
-                        <Route path="/post" component={Post}>
+                        <Route exact path="/post" component={Post}>
                             {/*<Post />*/}
                         </Route>
                         <Route path="/sign-in">

@@ -35,7 +35,7 @@ function Profile(props: any) {
     const lineWidth = 60;
 
     return (
-        <Router>
+        <div>
             <Row className={'align-items-center d-flex profile-header'}>
                 {/*avatar*/}
                 <Col className={'col-md-1 mb-5 mt-5'}>
@@ -52,8 +52,8 @@ function Profile(props: any) {
             <Row>
                 <div className=" mt-3 nav-scroller py-1 mb-2 w-100">
                     <nav className="nav d-flex justify-content-start">
-                        <Link className="p-2 link-secondary" to="/home">Series</Link>
-                        <Link className="p-2 link-secondary" to="/post">Post</Link>
+                        <Link className="p-2 link-secondary" to="/profile/">Series</Link>
+                        <Link className="p-2 link-secondary" to="/profile/user-post">Post</Link>
                         <Link className="p-2 link-secondary" to="#">Questions</Link>
                         <Link className="p-2 link-secondary" to="#">Answers</Link>
                         <Link className="p-2 link-secondary" to="#">Clips</Link>
@@ -69,9 +69,9 @@ function Profile(props: any) {
             <Row>
                 <Col className={'col-md-9'}>
                     <Switch>
-                        <Route path="/user-post" component={UserPosts}>
+                        <Route exact path="/profile/user-post" component={UserPosts}>
                         </Route>
-                        <Route path="/" component={UserPosts}>
+                        <Route exact path="/profile" component={UserPosts}>
                         </Route>
                     </Switch>
                 </Col>
@@ -179,7 +179,7 @@ function Profile(props: any) {
                     </div>
                 </Col>
             </Row>
-        </Router>
+        </div>
     );
 }
 
