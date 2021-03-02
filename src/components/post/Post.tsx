@@ -1,5 +1,5 @@
 import React, {useEffect, useRef, useState} from 'react';
-import {Col, Container, Row} from "reactstrap";
+import {Col, Container, Dropdown, DropdownItem, DropdownToggle, DropdownMenu, Row} from "reactstrap";
 import '../../assets/css/post.css'
 import '../../assets/css/sticky.css'
 import axios from "axios";
@@ -13,6 +13,8 @@ import showdownToc from "showdown-toc";
 import MDEditor from '@uiw/react-md-editor';
 import PostOverview from "../home/components/PostOverview";
 import PostRelated from "./related/PostRelated";
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
+import {faFlag, faEdit, faEye} from '@fortawesome/free-solid-svg-icons'
 
 function Post(props: any) {
     const [title, setTitle] = useState('Không có title')
@@ -103,6 +105,13 @@ function Post(props: any) {
 
     }, [reloadPost])
 
+    const [dropdownOpen, setDropdownOpen] = useState(false);
+    const toggle = () => setDropdownOpen(prevState => !prevState);
+
+    // @ts-ignore
+    // @ts-ignore
+    // @ts-ignore
+    // @ts-ignore
     return (
         <div>
             <Row>
@@ -138,8 +147,28 @@ function Post(props: any) {
                     {/*tags*/}
                     <div>
                         <Row className={'ml-2 mb-5'}>
-                            <span className={'mb-0 tags'}>#vscode</span>
-                            <span className={'mb-0 tags'}>#javascript</span>
+                            <Col className={'col-md-10'}>
+                                <span className={'mb-0 tags'}>#vscode</span>
+                                <span className={'mb-0 tags'}>#javascript</span>
+                            </Col>
+                            <Col className={'col-md-2'}>
+                                <Dropdown isOpen={true} >
+                                    {/*<DropdownToggle>*/}
+                                    {/*    Mo*/}
+                                    {/*</DropdownToggle>*/}
+                                    <DropdownMenu>
+                                        <DropdownItem>
+                                            <FontAwesomeIcon icon={faEdit} className={'view-icon'} />
+                                            Edit
+                                        </DropdownItem>
+                                        {/*<DropdownItem divider />*/}
+                                        <DropdownItem>
+                                            <FontAwesomeIcon icon={faFlag} className={'view-icon'} />
+                                            Report
+                                        </DropdownItem>
+                                    </DropdownMenu>
+                                </Dropdown>
+                            </Col>
                         </Row>
                     </div>
                     {/*Content*/}

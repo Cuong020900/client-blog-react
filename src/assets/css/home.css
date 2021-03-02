@@ -31,3 +31,54 @@
 .home {
     padding-bottom:270px; /* this needs to be bigger than footer height*/
 }
+
+.pagination {
+    justify-content: center;
+}
+
+.popover-avt {
+    width: 20%;
+}
+
+.popover-username {
+    width: 50%;
+}
+.popover-edit {
+    width: 20%;
+    display: flex;
+}
+.popover-header {
+    display: flex;
+    flex-direction: row;
+}
+
+.popover-body {
+}
+
+.popover-body > .item {
+    width: 100%;
+    padding: 10px 10px;
+    font-weight: 50;
+    font-size: 1.1rem;
+    color: #606266;
+}
+
+.popover-body .item a {
+    width: 100%;
+    display: block;
+}
+
+.popover-body .item:hover{
+    background-color: #f6f6f7;
+}
+
+.popover {
+    width: 300px;
+}
+
+.popover-divider {
+    flex-grow:1;
+    height: 1px;
+    margin: 0 10px;
+    border-top: 1px solid #d6d6d7;
+}

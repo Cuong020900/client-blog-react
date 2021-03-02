@@ -121,3 +121,32 @@ h1, h2, h3, h4, h5, h6 {
   height: 60px;
   line-height: 60px;
 }
+
+.profile-header {
+  background: #c7bda514;
+}
+
+.sidebar-box {
+  padding: 1rem;
+  margin: 1rem 0px;
+  border: 1px solid rgb(214, 214, 215);
+}
+
+.right-divider {
+  flex-grow:1;
+  height: 1rem;
+  margin: 0 10px;
+  border-bottom: 1px solid #d6d6d7;
+}
+
+.skill-body .skill {
+  display: inline-block;
+  padding: 2px;
+  border: 1px solid #e9e9eb;
+  border-radius: 5px;
+  background-color: #f4f4f5;
+  color: #909399;
+  font-size: 0.7rem;
+  margin-right: 8px;
+  margin-bottom: 5px;
+}

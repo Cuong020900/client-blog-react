@@ -1,6 +1,6 @@
-import React, {useContext} from 'react';
+import React, {useContext, useState} from 'react';
 import '../../assets/css/home.css'
-import {Col, Container, Row} from "reactstrap";
+import {Col, Container, Row, Popover, PopoverHeader, PopoverBody, Button} from "reactstrap";
 import '../../assets/css/blog.css'
 import {
     Switch,
@@ -13,9 +13,18 @@ import CreatePost from "../post/CreatePost";
 import Login from '../login/Login';
 import Signup from "../login/Signup";
 import {StoreContext} from "../../utils/store";
+import Profile from "../user/Profile";
+import Avatar from "react-avatar";
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
+import {faBook, faBuilding, faCog, faHistory, faSignOutAlt, faUser} from '@fortawesome/free-solid-svg-icons'
 
 function Home(props: any) {
     let store = useContext(StoreContext);
+    const [popoverOpen, setPopoverOpen] = useState(false);
+
+    const toggle = () => setPopoverOpen(!popoverOpen);
+
+    document.body.addEventListener('click', () => setPopoverOpen(false), true)
 
     return (
         <div>
@@ -41,13 +50,67 @@ function Home(props: any) {
                             {
                                 store.store.loggedIn &&
                                 <div>
-                                    <Link className="p-2 link-secondary btn btn-sm btn-outline-secondary" to="/profile">{store.store.username}</Link>
-                                    <Link className="ml-2 p-2 link-secondary btn btn-sm btn-outline-secondary" to="/"
-                                          onClick={() => {
-                                              localStorage.removeItem("jwt")
-                                              store.store.setLoggedIn(false)
-                                          }
-                                          }>Sign out</Link>
+                                    <div id={'profile-menu'}>
+                                        <Avatar githubHandle="sitebase" size="50" round={true} onClick={toggle}/>
+                                    </div>
+                                    <Popover placement="bottom" isOpen={popoverOpen} target="profile-menu" className={'popover'} toggle={toggle}>
+                                        <PopoverHeader className={'popover-header'}>
+                                            <div className={'popover-avt mr-3'}>
+                                                <Avatar githubHandle="sitebase" size="50" round={true} onClick={toggle}/>
+                                            </div>
+                                            <div className={'popover-username'}>
+                                                <h5 className={'text-primary pb-0'}>Cường Trần</h5>
+                                                <span className={'text-secondary'}>@CuongUET</span>
+                                            </div>
+                                            <div className={'popover-edit text-center align-items-center'}>
+                                                <Button size={'sm'} color={'primary'}>Edit</Button>
+                                            </div>
+                                        </PopoverHeader>
+                                        <PopoverBody className={'popover-body d-flex flex-column p-0'}>
+                                            <div className={'item'}>
+                                                <Link className="p-0 text-decoration-none text-secondary" to="/profile">
+                                                    <FontAwesomeIcon size={'sm'} icon={faUser}></FontAwesomeIcon>
+                                                    <span className={'ml-2'}>Profile</span>
+                                                </Link>
+                                            </div>
+                                            <div className={'item'}>
+                                                <Link className="p-0 text-decoration-none text-secondary" to="/profile">
+                                                    <FontAwesomeIcon size={'sm'} icon={faBook}></FontAwesomeIcon>
+                                                    <span className={'ml-2'}>My Contents</span>
+                                                </Link>
+                                            </div>
+                                            <div className={'item'}>
+                                                <Link className="p-0 text-decoration-none text-secondary" to="/profile">
+                                                    <FontAwesomeIcon size={'sm'} icon={faHistory}></FontAwesomeIcon>
+                                                    <span className={'ml-2'}>My Activities</span>
+                                                </Link>
+                                            </div>
+                                            <div className={'item'}>
+                                                <Link className="p-0 text-decoration-none text-secondary" to="/profile">
+                                                    <FontAwesomeIcon size={'sm'} icon={faBuilding}></FontAwesomeIcon>
+                                                    <span className={'ml-2'}>Organizations</span>
+                                                </Link>
+                                            </div>
+                                            <div className={'item'}>
+                                                <Link className="p-0 text-decoration-none text-secondary" to="/profile">
+                                                    <FontAwesomeIcon size={'sm'} icon={faCog}></FontAwesomeIcon>
+                                                    <span className={'ml-2'}>Preferences</span>
+                                                </Link>
+                                            </div>
+                                            <div className={'popover-divider'}></div>
+                                            <div className={'item'}>
+                                                <Link className="p-0 text-decoration-none text-secondary" to="/"
+                                                      onClick={() => {
+                                                          localStorage.removeItem("jwt")
+                                                          store.store.setLoggedIn(false)
+                                                      }
+                                                      }>
+                                                    <FontAwesomeIcon icon={faSignOutAlt}></FontAwesomeIcon>
+                                                    <span className={'ml-2'}>Sign out</span>
+                                                </Link>
+                                            </div>
+                                        </PopoverBody>
+                                    </Popover>
                                 </div>
                             }
                             {
@@ -99,6 +162,9 @@ function Home(props: any) {
                         </Route>
                         <Route path="/home" component={HomeContent}>
                             {/*<HomeContent />*/}
+                        </Route>
+                        <Route path="/profile">
+                            <Profile />
                         </Route>
                         <Route path="/">
                             <HomeContent />

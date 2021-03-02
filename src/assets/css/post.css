@@ -256,3 +256,7 @@ hr {
     font-weight: normal;
     font-style: normal;
 }
+
+.view-icon {
+    padding-top: 5px;
+}

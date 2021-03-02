@@ -8,28 +8,49 @@ import Trending from "./components/Trending";
 import Popup from "reactjs-popup";
 import {StoreContext} from "../../utils/store";
 import axios from "axios";
+import PaginationComponent from "react-reactstrap-pagination";
 
 function HomeContent(props: any) {
 
     const [listPost, setListPost] = useState([])
+    const [listPostTrending, setListPostTrending] = useState([])
+    const [activePage, setActivePage] = useState(1)
+    const [curPageData, setCurPageData] = useState([])
+    const PAGE_COUNT = 10
+
     useEffect(() => {
         let listPostTemp: any[] = []
         axios.get('http://localhost:3000/posts')
-            .then(res => {
-                res.data.data.forEach((e: any) => {
-                    listPostTemp.push(PostOverview(e.username, e.title, e.id))
+            .then(res => {                res.data.data.forEach((e: any) => {
+                    listPostTemp.push(PostOverview(e.username, e.title, e.view, e.id))
                 })
                 // @ts-ignore
                 setListPost(listPostTemp)
             })
+
+        let tListPostTrending: any[] = []
+        axios.get('http://localhost:3000/top-trending')
+            .then(res => {
+                res.data.data.forEach((e: any) => {
+                    tListPostTrending.push(Trending(e.username, e.title, e.view, e.id))
+                })
+                // @ts-ignore
+                setListPostTrending(tListPostTrending)
+            })
     }, [])
 
-    let list_post_trending = []
-    for (let i = 0; i < 16; i++) {
-        list_post_trending.push(Trending())
-    }
+    useEffect(() => {
+        setPageData()
+    }, [listPost, activePage])
 
     const store = useContext(StoreContext)
+    const handlePageChange = (pageNumber: number) => {
+        setActivePage(pageNumber)
+    }
+    const setPageData = () => {
+        let tCurPageData = listPost.slice(PAGE_COUNT*(activePage - 1), PAGE_COUNT*activePage)
+        setCurPageData(tCurPageData)
+    }
 
     return (
         <div>
@@ -48,12 +69,20 @@ function HomeContent(props: any) {
                 <Row className={'mt-3'}>
                     <Col className={'col-md-9'}>
                         {
-                            listPost
+                            curPageData
                         }
+                        <div className={'pagination mt-3'}>
+                            <PaginationComponent
+                                totalItems={listPost.length}
+                                pageSize={PAGE_COUNT}
+                                onSelect={handlePageChange}
+                            />
+                        </div>
                     </Col>
                     <Col className={'col-md-3 trending'}>
-                        {list_post_trending}
+                        {listPostTrending}
                     </Col>
+
                 </Row>
             </Container>
         </div>
