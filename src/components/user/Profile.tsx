@@ -10,6 +10,7 @@ import Avatar from "react-avatar";
 import { PieChart } from 'react-minimal-pie-chart';
 import UserPosts from "../home/components/UserPosts";
 import Post from "../post/Post";
+import { StoreContext } from '../../utils/store';
 
 function Profile(props: any) {
 
@@ -34,12 +35,14 @@ function Profile(props: any) {
 
     const lineWidth = 60;
 
+    let store = useContext(StoreContext);
+
     return (
         <div>
             <Row className={'align-items-center d-flex profile-header'}>
                 {/*avatar*/}
                 <Col className={'col-md-1 mb-5 mt-5'}>
-                    <Avatar githubHandle="sitebase" size="80" round={true} />
+                    <Avatar src={store.store.avatar} size="80" round={true} />
                 </Col>
                 <Col className={'col-md-3 text-left'}>
                     {/*name*/}
