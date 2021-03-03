@@ -17,6 +17,7 @@ import Profile from "../user/Profile";
 import Avatar from "react-avatar";
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faBook, faBuilding, faCog, faHistory, faSignOutAlt, faUser} from '@fortawesome/free-solid-svg-icons'
+import UpdatePost from '../post/UpdatePost';
 
 function Home(props: any) {
     let store = useContext(StoreContext);
@@ -35,7 +36,7 @@ function Home(props: any) {
                             <a className="link-secondary" href="#">Subscribe</a>
                         </Col>
                         <Col className="col-4 text-center">
-                            <a className="blog-header-logo text-dark" href="#">Viblo Pha ke</a>
+                            <Link className="blog-header-logo text-dark" to="/">Viblo Pha ke</Link>
                         </Col>
                         <Col className="col-4 d-flex justify-content-end align-items-center">
                             <a className="link-secondary" href="#" aria-label="Search">
@@ -51,16 +52,16 @@ function Home(props: any) {
                                 store.store.loggedIn &&
                                 <div>
                                     <div id={'profile-menu'}>
-                                        <Avatar githubHandle="sitebase" size="50" round={true} onClick={toggle}/>
+                                        <Avatar src={store.store.avatar} size="50" round={true} onClick={toggle}/>
                                     </div>
                                     <Popover placement="bottom" isOpen={popoverOpen} target="profile-menu" className={'popover'} toggle={toggle}>
                                         <PopoverHeader className={'popover-header'}>
                                             <div className={'popover-avt mr-3'}>
-                                                <Avatar githubHandle="sitebase" size="50" round={true} onClick={toggle}/>
+                                                <Avatar src={store.store.avatar} size="50" round={true} onClick={toggle}/>
                                             </div>
                                             <div className={'popover-username'}>
-                                                <h5 className={'text-primary pb-0'}>Cường Trần</h5>
-                                                <span className={'text-secondary'}>@CuongUET</span>
+                                                <h5 className={'text-primary pb-0'}>{store.store.name}</h5>
+                                                <span className={'text-secondary'}><span className="text-danger">@</span>{store.store.username}</span>
                                             </div>
                                             <div className={'popover-edit text-center align-items-center'}>
                                                 <Button size={'sm'} color={'primary'}>Edit</Button>
@@ -130,7 +131,6 @@ function Home(props: any) {
                 <div className="nav-scroller py-1 mb-2">
                     <nav className="nav d-flex justify-content-between">
                         <Link className="p-2 link-secondary" to="/home">Home</Link>
-                        <Link className="p-2 link-secondary" to="/post">Post</Link>
                         <Link className="p-2 link-secondary" to="/create-post">Create Post</Link>
                         <a className="p-2 link-secondary" href="#">U.S.</a>
                         <a className="p-2 link-secondary" href="#">Technology</a>
@@ -166,8 +166,13 @@ function Home(props: any) {
                         <Route path="/profile">
                             <Profile />
                         </Route>
-                        <Route path="/">
+                        <Route exact path="/edit-post" component={UpdatePost}>
+                        </Route>
+                        <Route exact path="/">
                             <HomeContent />
+                        </Route>
+                        <Route path="/">
+                            Sorry! Currently does not have this function
                         </Route>
                     </Switch>
                 </div>
