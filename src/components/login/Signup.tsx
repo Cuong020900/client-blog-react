@@ -1,23 +1,24 @@
 import React from 'react';
-import {Button, Container, Input} from 'reactstrap';
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
-import {faUpload} from '@fortawesome/free-solid-svg-icons'
+import { Button, Container, Input } from 'reactstrap';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faUpload } from '@fortawesome/free-solid-svg-icons'
 import axios from "axios";
 import '../../assets/css/signin.css'
-import {toast} from "react-toastify";
+import { toast } from "react-toastify";
 import { Redirect } from 'react-router-dom';
+import Avatar from 'react-avatar';
 
 
 function Signup(props: any) {
     const [userName, setUserName] = React.useState('')
     const [name, setName] = React.useState('')
     const [password, setPassword] = React.useState('')
+    const [avatar, setAvatar] = React.useState('')
     const [rePassword, setRePassword] = React.useState('')
-
     const [signUpSuccess, setSignUpSuccess] = React.useState(false)
 
     const validatePassword = () => {
-        if(!(password === rePassword)) {
+        if (!(password === rePassword)) {
             toast.warning('Mật khẩu không khớp')
             return false
         }
@@ -35,7 +36,8 @@ function Signup(props: any) {
             user: {
                 username: userName,
                 name: name,
-                password: password
+                password: password,
+                avatar: avatar
             }
         }
 
@@ -53,7 +55,7 @@ function Signup(props: any) {
         setSignUpSuccess(true)
     }
 
-    if (signUpSuccess) return (<Redirect to={'/'}/>)
+    if (signUpSuccess) return (<Redirect to={'/'} />)
     else
         return (
             <Container className={'sign-up'}>
@@ -61,40 +63,50 @@ function Signup(props: any) {
                 <form className={'text-left'}>
                     <label htmlFor="inputUsername" className="visually-hidden">Username</label>
                     <input type="text" id="inputUsername" className="form-control" placeholder="Username"
-                            // @ts-ignore
-                           value={userName}
-                            // @ts-ignore
-                           onChange={(e) => {
-                               setUserName(e.target.value)
-                           }}
-                           autoFocus />
+                        // @ts-ignore
+                        value={userName}
+                        // @ts-ignore
+                        onChange={(e) => {
+                            setUserName(e.target.value)
+                        }}
+                        autoFocus />
                     <label htmlFor="inputPassword" className="visually-hidden mt-3">Password</label>
                     <input type="password" id="inputPassword" className="form-control" placeholder="Password"
                         // @ts-ignore
-                           value={password}
+                        value={password}
                         // @ts-ignore
-                           onChange={(e) => {
-                               setPassword(e.target.value)
-                           }}
-                            />
+                        onChange={(e) => {
+                            setPassword(e.target.value)
+                        }}
+                    />
                     <label htmlFor="inputRePassword" className="visually-hidden mt-3">Re-Password</label>
                     <input type="password" id="inputRePassword" className="form-control" placeholder="Re-Password"
                         // @ts-ignore
-                           value={rePassword}
+                        value={rePassword}
                         // @ts-ignore
-                           onChange={(e) => {
-                               setRePassword(e.target.value)
-                           }}
-                            />
+                        onChange={(e) => {
+                            setRePassword(e.target.value)
+                        }}
+                    />
                     <label htmlFor="inputName" className="visually-hidden mt-3">Full name</label>
                     <input type="text" id="inputName" className="form-control" placeholder="Full name"
                         // @ts-ignore
-                           value={name}
+                        value={name}
                         // @ts-ignore
-                           onChange={(e) => {
-                               setName(e.target.value)
-                           }}
-                           />
+                        onChange={(e) => {
+                            setName(e.target.value)
+                        }}
+                    />
+                    <label htmlFor="inputAvatar" className="visually-hidden mt-3">Full name</label>
+                    <input type="text" id="inputAvatar" className="form-control mb-3" placeholder="Avatar URL"
+                        // @ts-ignore
+                        value={avatar}
+                        // @ts-ignore
+                        onChange={(e) => {
+                            setAvatar(e.target.value)
+                        }}
+                    />
+                    <Avatar size={'200'} round={true} src={avatar}></Avatar>
                 </form>
                 <button className="w-100 btn btn-lg btn-primary mt-5" onClick={signUp} >Register</button>
             </Container>

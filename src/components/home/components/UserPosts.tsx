@@ -15,9 +15,9 @@ function UserPosts (props: any) {
 
     useEffect(() => {
         let listPostTemp: any[] = []
-        axios.get('http://localhost:3000/posts')
+        axios.get('http://localhost:3000/my-post')
             .then(res => {                res.data.data.forEach((e: any) => {
-                listPostTemp.push(PostOverview(e.username, e.title, e.view, e.id))
+                listPostTemp.push(PostOverview(e.username, e.title, e.view, e.avatar, e.id))
             })
                 // @ts-ignore
                 setListPost(listPostTemp)

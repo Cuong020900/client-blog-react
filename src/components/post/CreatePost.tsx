@@ -9,7 +9,7 @@ import {Redirect} from "react-router-dom";
 
 function CreatePost(props: any) {
     const [value, setValue] = React.useState("**Hello world!!!**");
-    const [title, setTitle] = React.useState("");
+    const [title, setTitle] = React.useState("Hello world!!!");
     let [createSuccess, setCreateSuccess] = React.useState(false)
 
     const createPost = () => {

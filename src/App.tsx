@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import './App.css';
 import 'reactjs-popup/dist/index.css';
 import { ToastContainer } from 'react-toastify';
@@ -18,22 +18,34 @@ function App() {
 
     const [username, setUsername] = useState('')
     const [loggedIn, setLoggedIn] = useState('')
+    const [userId, setUserId] = useState('')
+    const [avatar, setAvatar] = useState('')
+    const [name, setName] = useState('')
 
     let jwt = localStorage.getItem('jwt') || ''
     axios.defaults.headers.common['Authorization'] = 'Bearer ' + jwt
     axios.get('http://localhost:3000/user-info')
         .then(res => {
-            initStore.store.setUsername(res.data.user.name)
-            initStore.store.setLoggedIn(true)
+            initStore.store.setUsername((e: any) => res.data.user.username)
+            initStore.store.setName((e: any) => res.data.user.name)
+            initStore.store.setLoggedIn((e: any) => true)
+            initStore.store.setUserId((e: any) => res.data.user.id ?? "")
+            initStore.store.setAvatar((e: any) =>res.data.user.avatar ?? "")
         })
-        .catch(err => console.log(err))
+        .catch(err => console.error(err))
 
     const initStore: any = {
         store: {
             username: username,
             setUsername: setUsername,
             loggedIn: loggedIn,
-            setLoggedIn: setLoggedIn
+            setLoggedIn: setLoggedIn,
+            userId: userId,
+            setUserId: setUserId,
+            avatar: avatar,
+            setAvatar: setAvatar,
+            name: name,
+            setName: setName
         }
     }
 

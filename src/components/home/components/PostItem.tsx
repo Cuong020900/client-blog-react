@@ -10,7 +10,7 @@ function PostOverview (username = 'Trần Quốc Cường', title: string = 'Kh�
             <Row>
                 {/*image*/}
                 <Col className={'col-md-1'}>
-                    <Avatar githubHandle="sitebase" size="50" round={true} />
+                    <Avatar src={"https://st.quantrimang.com/photos/image/2017/04/08/anh-dai-dien-FB-200.jpg"} size="50" round={true} />
                 </Col>
                 <Col className={'col-md-11 size-mini text-left'}>
                     {/*user info*/}

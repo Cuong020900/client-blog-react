@@ -9,7 +9,9 @@ import Popup from "reactjs-popup";
 import {StoreContext} from "../../utils/store";
 import axios from "axios";
 import PaginationComponent from "react-reactstrap-pagination";
-
+import {
+    Link
+} from 'react-router-dom';
 function HomeContent(props: any) {
 
     const [listPost, setListPost] = useState([])
@@ -22,7 +24,7 @@ function HomeContent(props: any) {
         let listPostTemp: any[] = []
         axios.get('http://localhost:3000/posts')
             .then(res => {                res.data.data.forEach((e: any) => {
-                    listPostTemp.push(PostOverview(e.username, e.title, e.view, e.id))
+                    listPostTemp.push(PostOverview(e.username, e.title, e.view, e.avatar, e.id))
                 })
                 // @ts-ignore
                 setListPost(listPostTemp)
@@ -55,7 +57,9 @@ function HomeContent(props: any) {
     return (
         <div>
             <Popup open={!store.store.loggedIn} position="center center">
-                <div className={'advertisement'}>Chưa có tài khoản? <a href="" className={'text-decoration-none'}>Đăng ký ngay</a></div>
+                <div className={'advertisement'}>Chưa có tài khoản? 
+                    <Link className="p-2 link-secondary" to="/sign-up">Đăng ký ngay</Link>
+                </div>
             </Popup>
             <Container>
                 <Row>
