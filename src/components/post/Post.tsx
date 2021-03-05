@@ -131,7 +131,7 @@ function Post(props: any) {
             <Row>
                 {/*content*/}
                 <Col className={'col-md-1 text-left'}>
-                    <Avatar src={userAvt} size="50" round={true} className={'social-sharing-avt'} />
+                    <Avatar src={store.store.avatar} size="50" round={true} className={'social-sharing-avt'} />
                     <div data-v-1b6678dc=""
                         className="mt-4 social-sharing mb-2 social-sharing--horizontal social-sharing--small"><a
                             onClick={e => {

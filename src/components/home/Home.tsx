@@ -1,6 +1,6 @@
-import React, {useContext, useState} from 'react';
+import React, { useContext, useState } from 'react';
 import '../../assets/css/home.css'
-import {Col, Container, Row, Popover, PopoverHeader, PopoverBody, Button} from "reactstrap";
+import { Col, Container, Row, Popover, PopoverHeader, PopoverBody, Button } from "reactstrap";
 import '../../assets/css/blog.css'
 import {
     Switch,
@@ -12,11 +12,11 @@ import Post from "../post/Post";
 import CreatePost from "../post/CreatePost";
 import Login from '../login/Login';
 import Signup from "../login/Signup";
-import {StoreContext} from "../../utils/store";
+import { StoreContext } from "../../utils/store";
 import Profile from "../user/Profile";
 import Avatar from "react-avatar";
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
-import {faBook, faBuilding, faCog, faHistory, faSignOutAlt, faUser} from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faBook, faBuilding, faCog, faHistory, faPen, faSignOutAlt, faUser } from '@fortawesome/free-solid-svg-icons'
 import UpdatePost from '../post/UpdatePost';
 
 function Home(props: any) {
@@ -41,33 +41,39 @@ function Home(props: any) {
                         <Col className="col-4 d-flex justify-content-end align-items-center">
                             <a className="link-secondary" href="#" aria-label="Search">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none"
-                                     stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                     stroke-width="2" className="mx-3" role="img" viewBox="0 0 24 24">
+                                    stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                    stroke-width="2" className="mx-3" role="img" viewBox="0 0 24 24">
                                     <title>Search</title>
-                                    <circle cx="10.5" cy="10.5" r="7.5"/>
-                                    <path d="M21 21l-5.2-5.2"/>
+                                    <circle cx="10.5" cy="10.5" r="7.5" />
+                                    <path d="M21 21l-5.2-5.2" />
                                 </svg>
                             </a>
                             {
                                 store.store.loggedIn &&
                                 <div>
                                     <div id={'profile-menu'}>
-                                        <Avatar src={store.store.avatar} size="50" round={true} onClick={toggle}/>
+                                        <Avatar src={store.store.avatar} size="50" round={true} onClick={toggle} />
                                     </div>
                                     <Popover placement="bottom" isOpen={popoverOpen} target="profile-menu" className={'popover'} toggle={toggle}>
                                         <PopoverHeader className={'popover-header'}>
                                             <div className={'popover-avt mr-3'}>
-                                                <Avatar src={store.store.avatar} size="50" round={true} onClick={toggle}/>
+                                                <Avatar src={store.store.avatar} size="50" round={true} onClick={toggle} />
                                             </div>
                                             <div className={'popover-username'}>
-                                                <h5 className={'text-primary pb-0'}>{store.store.name}</h5>
-                                                <span className={'text-secondary'}><span className="text-danger">@</span>{store.store.username}</span>
+                                                <h6 className={'text-primary pb-0'}>{store.store.name}</h6>
+                                                <span className={'text-secondary'}><span className="text-danger"></span>{store.store.username}</span>
                                             </div>
                                             <div className={'popover-edit text-center align-items-center'}>
                                                 <Button size={'sm'} color={'primary'}>Edit</Button>
                                             </div>
                                         </PopoverHeader>
                                         <PopoverBody className={'popover-body d-flex flex-column p-0'}>
+                                            <div className={'item'}>
+                                                <Link className="p-0 text-decoration-none text-secondary" to="/create-post">
+                                                    <FontAwesomeIcon size={'sm'} icon={faPen}></FontAwesomeIcon>
+                                                    <span className={'ml-2'}>Create Post</span>
+                                                </Link>
+                                            </div>
                                             <div className={'item'}>
                                                 <Link className="p-0 text-decoration-none text-secondary" to="/profile">
                                                     <FontAwesomeIcon size={'sm'} icon={faUser}></FontAwesomeIcon>
@@ -101,11 +107,11 @@ function Home(props: any) {
                                             <div className={'popover-divider'}></div>
                                             <div className={'item'}>
                                                 <Link className="p-0 text-decoration-none text-secondary" to="/"
-                                                      onClick={() => {
-                                                          localStorage.removeItem("jwt")
-                                                          store.store.setLoggedIn(false)
-                                                      }
-                                                      }>
+                                                    onClick={() => {
+                                                        localStorage.removeItem("jwt")
+                                                        store.store.setLoggedIn(false)
+                                                    }
+                                                    }>
                                                     <FontAwesomeIcon icon={faSignOutAlt}></FontAwesomeIcon>
                                                     <span className={'ml-2'}>Sign out</span>
                                                 </Link>
@@ -120,7 +126,7 @@ function Home(props: any) {
                                     <Link className="p-2 link-secondary btn btn-sm btn-outline-secondary" to="/sign-up">Sign
                                         up</Link>
                                     <Link className="p-2 link-secondary btn btn-sm btn-outline-secondary ml-2"
-                                          to="/sign-in">Sign in</Link>
+                                        to="/sign-in">Sign in</Link>
                                 </div>
 
                             }
@@ -131,7 +137,6 @@ function Home(props: any) {
                 <div className="nav-scroller py-1 mb-2">
                     <nav className="nav d-flex justify-content-between">
                         <Link className="p-2 link-secondary" to="/home">Home</Link>
-                        <Link className="p-2 link-secondary" to="/create-post">Create Post</Link>
                         <a className="p-2 link-secondary" href="#">U.S.</a>
                         <a className="p-2 link-secondary" href="#">Technology</a>
                         <a className="p-2 link-secondary" href="#">Design</a>

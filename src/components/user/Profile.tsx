@@ -85,11 +85,11 @@ function Profile(props: any) {
                         <div className="profile-stats d-flex flex-column text-left">
                             <div className={'d-flex mb-2 justify-content-between'}>
                                 <span className="link-secondary">Total post views</span>
-                                <span>13.7K</span>
+                                <span>137</span>
                             </div>
                             <div className={'d-flex mb-2 justify-content-between'}>
                                 <span className="link-secondary">Reputations</span>
-                                <span>1053</span>
+                                <span>153</span>
                             </div>
                             <div className={'d-flex mb-2 justify-content-between'}>
                                 <span className="link-secondary">Following tags</span>
@@ -109,7 +109,7 @@ function Profile(props: any) {
                             </div>
                             <div className={'d-flex mb-2 justify-content-between'}>
                                 <span className="link-secondary">Clips</span>
-                                <span>137</span>
+                                <span>17</span>
                             </div>
                             <div className={'d-flex mb-2 justify-content-between'}>
                                 <span className="link-secondary">Total questions</span>
