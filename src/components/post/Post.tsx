@@ -153,7 +153,7 @@ function Post(props: any) {
                 {/*post*/}
                 <Col className={'col-md-8 text-left content-area'}>
                     {/*USER INFO*/}
-                    <div className={''}><Avatar src={userAvt} size="50" round={true} /> {userInfo}</div>
+                    <div className={'mb-5'}><Avatar src={userAvt} size="50" round={true} /> {userInfo}</div>
                     {/*Title*/}
                     <div className={'mt-3 font-weight-bolder'}>
                         <h2>{title}</h2>
