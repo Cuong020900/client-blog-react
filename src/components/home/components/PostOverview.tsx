@@ -32,7 +32,7 @@ function PostOverview (username = 'Trần Quốc Cường', title: string = 'Kh�
                     </Row>
                     {/*statistics*/}
                     <Row>
-                        {view} lượt xem
+                        {view} views
                     </Row>
                 </Col>
             </Row>
