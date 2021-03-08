@@ -23,6 +23,7 @@
     "react-markdown": "^5.0.3",
     "react-meta-tags": "^1.0.1",
     "react-minimal-pie-chart": "^8.1.0",
+    "react-rating-stars-component": "^2.2.0",
     "react-reactstrap-pagination": "^2.0.3",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.2",

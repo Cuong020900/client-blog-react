@@ -17,6 +17,11 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEdit, faEllipsisH, faFlag } from '@fortawesome/free-solid-svg-icons'
 import { Link } from 'react-router-dom';
 import { StoreContext } from '../../utils/store';
+import CreateCommentBox from './comment/CreateCommentBox';
+import DisplayCommentBox from './comment/DisplayCommentBox';
+
+
+export const CommentContext = React.createContext({})
 
 function Post(props: any) {
     const [title, setTitle] = useState('Không có title')
@@ -124,6 +129,7 @@ function Post(props: any) {
 
     const [dropdownOpen, setDropdownOpen] = useState(false);
     const toggle = () => setDropdownOpen(prevState => !prevState);
+
 
     // @ts-ignore
     return (
@@ -348,6 +354,34 @@ function Post(props: any) {
                                 }
                             </div>
                         </div>
+                    </Col>
+                </Row>
+
+            </Container>
+            {
+                store.store.loggedIn && (
+                    <Container className={'mt-5'}>
+                        <Row>
+                            <Col className={'col-md-1'} />
+                            <Col className={'col-md-11 mt-5'}>
+                                <CreateCommentBox postId={id}></CreateCommentBox>
+                            </Col>
+                        </Row>
+                    </Container>
+                )
+            }
+            {/* comment display */}
+            <Container className={'mt-5'}>
+                <Row>
+                    <Col className={'col-md-1'} />
+                    <Col className={'col-md-11 mt-5'}>
+                        <CommentContext.Provider
+                            value={{
+                                postId: id
+                            }}
+                        >
+                            <DisplayCommentBox postId={id}></DisplayCommentBox>
+                        </CommentContext.Provider>
                     </Col>
                 </Row>
 
