@@ -19,7 +19,7 @@ function Signup(props: any) {
 
     const validatePassword = () => {
         if (!(password === rePassword)) {
-            toast.warning('Mật khẩu không khớp')
+            toast.warning('Password not match')
             return false
         }
         return true
@@ -27,7 +27,7 @@ function Signup(props: any) {
 
     const signUp = async () => {
         if (!(!!name || !!userName || !!password || !!rePassword)) {
-            toast.warning('Nhập đầy đủ các trường')
+            toast.warning('Please fill all box!!')
             return
         }
         if (!validatePassword()) return
@@ -44,15 +44,16 @@ function Signup(props: any) {
         let result = await axios.post('http://localhost:3000/users', dataSend)
 
         if (+result.status !== 201) {
-            toast.error("Không tạo được tài khoản")
+            toast.error("Cannot create account!!")
             return
         }
 
         let jwt = result.data.jwt
 
         localStorage.setItem('jwt', jwt)
-        toast.success("Tạo tài khoản thành công")
+        toast.success("Create account successfully!!")
         setSignUpSuccess(true)
+        window.location.href = "/"
     }
 
     if (signUpSuccess) return (<Redirect to={'/'} />)
@@ -97,7 +98,7 @@ function Signup(props: any) {
                             setName(e.target.value)
                         }}
                     />
-                    <label htmlFor="inputAvatar" className="visually-hidden mt-3">Full name</label>
+                    <label htmlFor="inputAvatar" className="visually-hidden mt-3">Avatar</label>
                     <input type="text" id="inputAvatar" className="form-control mb-3" placeholder="Avatar URL"
                         // @ts-ignore
                         value={avatar}

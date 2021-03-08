@@ -13,7 +13,7 @@ function Trending (username = 'Trần Quốc Cường', title: string = 'Không 
                 <Link className="size-medium link-secondary" to={"/post?id=" + postId}>{title}</Link>
             </Row>
             <Row className={'size-13'}>
-                @{username}
+                {username}
             </Row>
             <Row className={'size-13'}>
                 <FontAwesomeIcon icon={faEye} className={'view-icon'} /> {view}

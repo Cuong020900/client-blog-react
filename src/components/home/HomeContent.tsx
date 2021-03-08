@@ -23,8 +23,9 @@ function HomeContent(props: any) {
     useEffect(() => {
         let listPostTemp: any[] = []
         axios.get('http://localhost:3000/posts')
-            .then(res => {                res.data.data.forEach((e: any) => {
-                    listPostTemp.push(PostOverview(e.username, e.title, e.view, e.avatar, e.id))
+            .then(res => {
+                    res.data.data.forEach((e: any) => {
+                    listPostTemp.push(PostOverview(e.name, e.title, e.view, e.avatar, e.id))
                 })
                 // @ts-ignore
                 setListPost(listPostTemp)
