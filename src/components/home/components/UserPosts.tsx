@@ -16,14 +16,11 @@ function UserPosts (props: any) {
     const [userId, setUserId] = useState(0)
 
     useEffect(() => {
-        let userId = props.location.search;
-        userId = QueryString.parse(userId)
-        setUserId(id => userId.id)
-    }, [])
-
-    useEffect(() => {
+        let tUserId = props.location.search;
+        tUserId = QueryString.parse(tUserId)
+        setUserId(id => tUserId.id)
         let listPostTemp: any[] = []
-        axios.get(`http://localhost:3000/my-post?id=${userId}`)
+        axios.get(`http://localhost:3000/my-post?id=${tUserId.id}`)
             .then(res => {                res.data.data.forEach((e: any) => {
                 listPostTemp.push(PostOverview(e.username, e.tags, e.title, e.view, e.cmt_count, e.avatar, e.id))
             })

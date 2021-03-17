@@ -12,6 +12,7 @@ import UserPosts from "../home/components/UserPosts";
 import Post from "../post/Post";
 import { StoreContext } from '../../utils/store';
 import QueryString from 'query-string'
+import axios from "axios";
 
 function Profile(props: any) {
 
@@ -19,6 +20,9 @@ function Profile(props: any) {
     const [selected, setSelected] = useState<number | undefined>(0);
     const [hovered, setHovered] = useState<number | undefined>(undefined);
     const [userId, setUserId] = useState(0)
+    const [name, setName] = useState("Trần Cường")
+    const [avt, setAvt] = useState("Trần Cường")
+    const [userName, setUserName] = useState("CuongUET")
 
     const mockData = [
         { title: 'One', value: 10, color: '#E38627' },
@@ -36,9 +40,20 @@ function Profile(props: any) {
     });
 
     useEffect(() => {
-        let userId = props.location.search;
-        userId = QueryString.parse(userId)
-        setUserId(id => userId.id)
+        let tUserId = props.location.search;
+        tUserId = QueryString.parse(tUserId)
+        setUserId(id => tUserId.id)
+
+        axios.get(`http://localhost:3000/user-info-by-id?id=${tUserId.id}`)
+            .then(res => {
+                setName(res.data.user.name)
+                setUserName(res.data.user.username)
+                setAvt(res.data.user.avatar)
+            })
+            .catch(() => {
+                window.location.href = "/"
+            })
+
     }, [])
 
     const lineWidth = 60;
@@ -50,21 +65,21 @@ function Profile(props: any) {
             <Row className={'align-items-center d-flex profile-header'}>
                 {/*avatar*/}
                 <Col className={'col-md-1 mb-5 mt-5'}>
-                    <Avatar src={store.store.avatar} size="80" round={true} />
+                    <Avatar src={avt} size="80" round={true} />
                 </Col>
-                <Col className={'col-md-3 text-left'}>
+                <Col className={'col-md-10 text-left'}>
                     {/*name*/}
-                    <h2 className={'pb-0 mb-0'}>Trần Cường</h2>
+                    <h2 className={'pb-0 mb-0'}>{name}</h2>
                     {/*username*/}
-                    <h4 className={'text-secondary'}>@CuongUET</h4>
+                    <h4 className={'text-secondary'}>@{userName}</h4>
                 </Col>
             </Row>
             {/*nav bar*/}
             <Row>
                 <div className=" mt-3 nav-scroller py-1 mb-2 w-100">
                     <nav className="nav d-flex justify-content-start">
-                        <Link className="p-2 link-secondary" to="/profile/">Series</Link>
-                        <Link className="p-2 link-secondary" to="/profile/user-post">Post</Link>
+                        <Link className="p-2 link-secondary" to={`/profile?id=${userId}`}>Series</Link>
+                        <Link className="p-2 link-secondary" to={`/profile/user-post?id=${userId}`}>Post</Link>
                         <Link className="p-2 link-secondary" to="#">Questions</Link>
                         <Link className="p-2 link-secondary" to="#">Answers</Link>
                         <Link className="p-2 link-secondary" to="#">Clips</Link>
@@ -80,9 +95,9 @@ function Profile(props: any) {
             <Row>
                 <Col className={'col-md-9'}>
                     <Switch>
-                        <Route path={`/profile/user-post?id=${userId}`} component={UserPosts}>
+                        <Route path={`/profile/user-post`} component={UserPosts}>
                         </Route>
-                        <Route path={`/profile?id=${userId}`} component={UserPosts}>
+                        <Route path={`/profile`} component={UserPosts}>
                         </Route>
                     </Switch>
                 </Col>

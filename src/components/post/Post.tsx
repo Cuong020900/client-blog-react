@@ -19,7 +19,8 @@ import { Link } from 'react-router-dom';
 import { StoreContext } from '../../utils/store';
 import CreateCommentBox from './comment/CreateCommentBox';
 import DisplayCommentBox from './comment/DisplayCommentBox';
-
+import { Redirect } from 'react-router-dom';
+import {withRouter} from 'react-router-dom';
 
 export const CommentContext = React.createContext({})
 
@@ -130,6 +131,9 @@ function Post(props: any) {
     const [dropdownOpen, setDropdownOpen] = useState(false);
     const toggle = () => setDropdownOpen(prevState => !prevState);
 
+    const toProfile = () => {
+        props.history.push(`/profile?id=${cuid}`)
+    }
 
     // @ts-ignore
     return (
@@ -137,7 +141,7 @@ function Post(props: any) {
             <Row>
                 {/*content*/}
                 <Col className={'col-md-1 text-left'}>
-                    <Avatar src={store.store.avatar} size="50" round={true} className={'social-sharing-avt'} />
+                    <Avatar src={userAvt} size="50" round={true} onClick={toProfile} className={'social-sharing-avt'} />
                     <div data-v-1b6678dc=""
                         className="mt-4 social-sharing mb-2 social-sharing--horizontal social-sharing--small"><a
                             onClick={e => {
@@ -390,4 +394,4 @@ function Post(props: any) {
     );
 }
 
-export default Post;
+export default withRouter(Post);

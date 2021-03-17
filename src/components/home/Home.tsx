@@ -75,31 +75,31 @@ function Home(props: any) {
                                                 </Link>
                                             </div>
                                             <div className={'item'}>
-                                                <Link className="p-0 text-decoration-none text-secondary" to="/profile">
+                                                <Link className="p-0 text-decoration-none text-secondary" to={`/profile?id=${store.store.userId}`}>
                                                     <FontAwesomeIcon size={'sm'} icon={faUser}></FontAwesomeIcon>
                                                     <span className={'ml-2'}>Profile</span>
                                                 </Link>
                                             </div>
                                             <div className={'item'}>
-                                                <Link className="p-0 text-decoration-none text-secondary" to="/profile">
+                                                <Link className="p-0 text-decoration-none text-secondary" to={`/profile?id=${store.store.userId}`}>
                                                     <FontAwesomeIcon size={'sm'} icon={faBook}></FontAwesomeIcon>
                                                     <span className={'ml-2'}>My Contents</span>
                                                 </Link>
                                             </div>
                                             <div className={'item'}>
-                                                <Link className="p-0 text-decoration-none text-secondary" to="/profile">
+                                                <Link className="p-0 text-decoration-none text-secondary" to={`/profile?id=${store.store.userId}`}>
                                                     <FontAwesomeIcon size={'sm'} icon={faHistory}></FontAwesomeIcon>
                                                     <span className={'ml-2'}>My Activities</span>
                                                 </Link>
                                             </div>
                                             <div className={'item'}>
-                                                <Link className="p-0 text-decoration-none text-secondary" to="/profile">
+                                                <Link className="p-0 text-decoration-none text-secondary" to={`/profile?id=${store.store.userId}`}>
                                                     <FontAwesomeIcon size={'sm'} icon={faBuilding}></FontAwesomeIcon>
                                                     <span className={'ml-2'}>Organizations</span>
                                                 </Link>
                                             </div>
                                             <div className={'item'}>
-                                                <Link className="p-0 text-decoration-none text-secondary" to="/profile">
+                                                <Link className="p-0 text-decoration-none text-secondary" to={`/profile?id=${store.store.userId}`}>
                                                     <FontAwesomeIcon size={'sm'} icon={faCog}></FontAwesomeIcon>
                                                     <span className={'ml-2'}>Preferences</span>
                                                 </Link>
@@ -168,8 +168,7 @@ function Home(props: any) {
                         <Route path="/home" component={HomeContent}>
                             {/*<HomeContent />*/}
                         </Route>
-                        <Route path="/profile">
-                            <Profile />
+                        <Route path="/profile" component={Profile}>
                         </Route>
                         <Route exact path="/edit-post" component={UpdatePost}>
                         </Route>

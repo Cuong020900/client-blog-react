@@ -52,7 +52,7 @@ function Login(props: any) {
                 <h1 className="h3 mb-3 fw-normal">Sign in</h1>
                 <form className={'text-left'}>
                     <label htmlFor="inputEmail" className="visually-hidden">Email address</label>
-                    <input type="email" id="inputEmail" className="form-control" placeholder="Email address" required
+                    <input type="text" id="inputEmail" className="form-control" placeholder="Email address" required
                         value={userName}
                         onChange={(e) => {
                             setUserName(userName => e.target.value)
