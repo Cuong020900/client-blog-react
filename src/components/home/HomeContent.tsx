@@ -25,7 +25,7 @@ function HomeContent(props: any) {
         axios.get('http://localhost:3000/posts')
             .then(res => {
                     res.data.data.forEach((e: any) => {
-                    listPostTemp.push(PostOverview(e.name, e.title, e.view, e.avatar, e.id))
+                    listPostTemp.push(PostOverview(e.name, e.tags, e.title, e.view, e.cmt_count, e.avatar, e.id))
                 })
                 // @ts-ignore
                 setListPost(listPostTemp)
@@ -65,7 +65,7 @@ function HomeContent(props: any) {
             <Container>
                 <Row>
                     <Col className={'col-md-9'} >
-                        <h4 className={'text-secondary font-weight-bold text-left'}>Danh sách bài viết</h4>
+                        <h4 className={'text-secondary font-weight-bold text-left'}>List of posts - Danh sách bài viết</h4>
                     </Col>
                     <Col className={'col-md-3'}>
                         <h4 className={'text-primary font-weight-bold decoration'}>Top Trending</h4>

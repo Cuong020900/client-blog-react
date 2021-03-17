@@ -4,7 +4,10 @@ import Avatar from 'react-avatar';
 import '../../../assets/css/post.css'
 import {Link} from "react-router-dom";
 
-function PostOverview (username = 'Trần Quốc Cường', title: string = 'Không có tiêu đề', view: number = 0, avatar: string = "https://st.quantrimang.com/photos/image/2017/04/08/anh-dai-dien-FB-200.jpg", postId = -1) {
+function PostOverview (username = 'Trần Quốc Cường', tags: [], title: string = 'Không có tiêu đề', view: number = 0, cmt_count: number = 0, avatar: string = "https://st.quantrimang.com/photos/image/2017/04/08/anh-dai-dien-FB-200.jpg", postId = -1) {
+    const tags_render = tags?.map(tag => {
+        return (<span className={'mb-0 tags'}>#{tag}</span>)
+    }) 
     return (
         <div>
             <Row>
@@ -27,12 +30,11 @@ function PostOverview (username = 'Trần Quốc Cường', title: string = 'Kh�
                     </Row>
                     {/*tags*/}
                     <Row>
-                        <span className={'mb-0 tags'}>#vscode</span>
-                        <span className={'mb-0 tags'}>#javascript</span>
+                        {tags_render}
                     </Row>
                     {/*statistics*/}
                     <Row>
-                        {view} views - 0 comment
+                        {view} views - {cmt_count} comment
                     </Row>
                 </Col>
             </Row>

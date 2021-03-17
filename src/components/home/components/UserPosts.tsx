@@ -5,6 +5,7 @@ import '../../../assets/css/blog.css'
 import axios from "axios";
 import PaginationComponent from "react-reactstrap-pagination";
 import PostOverview from "./PostOverview";
+import QueryString from 'query-string'
 
 function UserPosts (props: any) {
 
@@ -12,12 +13,19 @@ function UserPosts (props: any) {
     const [activePage, setActivePage] = useState(1)
     const [curPageData, setCurPageData] = useState([])
     const PAGE_COUNT = 5
+    const [userId, setUserId] = useState(0)
+
+    useEffect(() => {
+        let userId = props.location.search;
+        userId = QueryString.parse(userId)
+        setUserId(id => userId.id)
+    }, [])
 
     useEffect(() => {
         let listPostTemp: any[] = []
-        axios.get('http://localhost:3000/my-post')
+        axios.get(`http://localhost:3000/my-post?id=${userId}`)
             .then(res => {                res.data.data.forEach((e: any) => {
-                listPostTemp.push(PostOverview(e.username, e.title, e.view, e.avatar, e.id))
+                listPostTemp.push(PostOverview(e.username, e.tags, e.title, e.view, e.cmt_count, e.avatar, e.id))
             })
                 // @ts-ignore
                 setListPost(listPostTemp)

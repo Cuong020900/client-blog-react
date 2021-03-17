@@ -11,12 +11,14 @@ import { PieChart } from 'react-minimal-pie-chart';
 import UserPosts from "../home/components/UserPosts";
 import Post from "../post/Post";
 import { StoreContext } from '../../utils/store';
+import QueryString from 'query-string'
 
 function Profile(props: any) {
 
     // chart
     const [selected, setSelected] = useState<number | undefined>(0);
     const [hovered, setHovered] = useState<number | undefined>(undefined);
+    const [userId, setUserId] = useState(0)
 
     const mockData = [
         { title: 'One', value: 10, color: '#E38627' },
@@ -32,6 +34,12 @@ function Profile(props: any) {
         }
         return entry;
     });
+
+    useEffect(() => {
+        let userId = props.location.search;
+        userId = QueryString.parse(userId)
+        setUserId(id => userId.id)
+    }, [])
 
     const lineWidth = 60;
 
@@ -72,9 +80,9 @@ function Profile(props: any) {
             <Row>
                 <Col className={'col-md-9'}>
                     <Switch>
-                        <Route exact path="/profile/user-post" component={UserPosts}>
+                        <Route path={`/profile/user-post?id=${userId}`} component={UserPosts}>
                         </Route>
-                        <Route exact path="/profile" component={UserPosts}>
+                        <Route path={`/profile?id=${userId}`} component={UserPosts}>
                         </Route>
                     </Switch>
                 </Col>
