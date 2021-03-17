@@ -7,7 +7,8 @@ import '../../assets/css/signin.css'
 import { toast } from "react-toastify";
 import { Redirect } from 'react-router-dom';
 import Avatar from 'react-avatar';
-
+import UploadService from '../helper/uploadfile'
+import Resizer from 'react-image-file-resizer';
 
 function Signup(props: any) {
     const [userName, setUserName] = React.useState('')
@@ -17,12 +18,31 @@ function Signup(props: any) {
     const [rePassword, setRePassword] = React.useState('')
     const [signUpSuccess, setSignUpSuccess] = React.useState(false)
 
+    const [currentFile, setCurrentFile] = React.useState<any>(undefined)
+    const [previewImage, setPreviewImage] = React.useState(undefined)
+    const [progress, setProgress] = React.useState(0)
+    const [message, setMessage] = React.useState("")
+
+    const resizeFile = (file: any) => new Promise(resolve => {
+        Resizer.imageFileResizer(file, 300, 300, 'JPEG', 100, 0,
+        uri => {
+          resolve(uri);
+        },
+        'base64'
+        );
+    });
+
     const validatePassword = () => {
         if (!(password === rePassword)) {
             toast.warning('Password not match')
             return false
         }
         return true
+    }
+
+    const selectFile = async (event: any) => {
+        let image = await resizeFile(event.target.files[0]);
+        setCurrentFile(() => image)
     }
 
     const signUp = async () => {
@@ -37,7 +57,7 @@ function Signup(props: any) {
                 username: userName,
                 name: name,
                 password: password,
-                avatar: avatar
+                avatar: currentFile ?? avatar
             }
         }
 
@@ -98,8 +118,13 @@ function Signup(props: any) {
                             setName(e.target.value)
                         }}
                     />
-                    <label htmlFor="inputAvatar" className="visually-hidden mt-3">Avatar</label>
-                    <input type="text" id="inputAvatar" className="form-control mb-3" placeholder="Avatar URL"
+                    <label htmlFor="inputAvatarFile" className="visually-hidden mt-3 d-block">Avatar</label>
+                    <input type="file" accept="image/*" id="inputAvatarFile" onChange={selectFile} />
+                    <br/>
+                    <br/>
+                    <span>&nbsp;&nbsp;&nbsp;&nbsp; OR</span>
+                    <label htmlFor="inputAvatar" className="visually-hidden mt-3 d-block">Avatar</label>
+                    <input type="text" id="inputAvatar" className="form-control mb-3" placeholder="Enter avatar URL"
                         // @ts-ignore
                         value={avatar}
                         // @ts-ignore
@@ -107,9 +132,9 @@ function Signup(props: any) {
                             setAvatar(e.target.value)
                         }}
                     />
-                    <Avatar size={'200'} round={true} src={avatar}></Avatar>
+                    <Avatar size={'200'} round={true} src={currentFile ?? avatar}></Avatar>
                 </form>
-                <button className="w-100 btn btn-lg btn-primary mt-5" onClick={signUp} >Register</button>
+                <button disabled={!currentFile} className="w-100 btn btn-lg btn-primary mt-5" onClick={signUp} >Register</button>
             </Container>
         );
 }

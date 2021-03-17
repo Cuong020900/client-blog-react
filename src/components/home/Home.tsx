@@ -61,7 +61,7 @@ function Home(props: any) {
                                             </div>
                                             <div className={'popover-username'}>
                                                 <h6 className={'text-primary pb-0'}>{store.store.name}</h6>
-                                                <span className={'text-secondary'}><span className="text-danger"></span>{store.store.username}</span>
+                                                <span className={'text-secondary'}><span className="text-danger"></span>@{store.store.username}</span>
                                             </div>
                                             <div className={'popover-edit text-center align-items-center'}>
                                                 <Button size={'sm'} color={'primary'}>Edit</Button>

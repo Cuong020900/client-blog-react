@@ -58,8 +58,11 @@ function HomeContent(props: any) {
     return (
         <div>
             <Popup open={!store.store.loggedIn} position="center center">
-                <div className={'advertisement'}>Chưa có tài khoản? 
-                    <Link className="p-2 link-secondary" to="/sign-up">Đăng ký ngay</Link>
+                <div className="mb-5">
+                    <img alt="VSS 2021" src="https://images.viblo.asia/full/0d3d50a8-e5fd-4a51-84c9-9751bf74246a.gif" width="100%" height="200px" />
+                </div>
+                <div className={'advertisement'}>Don't have an account? 
+                    <Link className="p-2 link-secondary" to="/sign-up">Sign up now</Link>
                 </div>
             </Popup>
             <Container>
