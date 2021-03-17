@@ -18,9 +18,10 @@ function CreatePost(props: any) {
     const createPost = () => {
         let postData = {
             title: title,
-            content: value
+            content: value, 
+            tags: tags
         }
-        axios.post('http://localhost:3000/posts', { post: postData, tags: tags })
+        axios.post('http://localhost:3000/posts', { post: postData })
             .then(res => {
                 toast.success('Tạo bài viết thành công')
                 setCreateSuccess(true)

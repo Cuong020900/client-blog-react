@@ -7,12 +7,15 @@ import axios from "axios";
 import {toast} from "react-toastify";
 import {Redirect} from "react-router-dom";
 import QueryString from 'query-string'
+import ReactTagInput from "@pathofdev/react-tag-input";
+import "@pathofdev/react-tag-input/build/index.css";
 
 function UpdatePost(props: any) {
     const [value, setValue] = React.useState("*** Hello World ***");
     const [title, setTitle] = React.useState("Hello world!!!");
     let [updateSuccess, setUpdateSuccess] = React.useState(false)
     const [id, setId] = useState(0)
+    const [tags, setTags] = React.useState([])
 
     useEffect(() => {
         let postId = props.location.search;
@@ -22,6 +25,7 @@ function UpdatePost(props: any) {
         .then(res => {
             setTitle(res.data.post.title)
             setValue(res.data.post.content)
+            setTags(res.data.post.tags)
         })
         .catch(e => console.error(e))
     }, [])
@@ -29,7 +33,8 @@ function UpdatePost(props: any) {
     const updatePost = () => {
         let postData = {
             title: title,
-            content: value
+            content: value,
+            tags: tags
         }
         axios.put(`http://localhost:3000/posts/${id}`, {post: postData})
             .then(res => {
@@ -70,6 +75,13 @@ function UpdatePost(props: any) {
                    onChange={e => {
                        setTitle(e.target.value)
                    }}
+            />
+
+            Tags:
+            <ReactTagInput
+                tags={tags}
+                // @ts-ignore
+                onChange={(newTags: string) => setTags(newTags)}
             />
 
             Content:

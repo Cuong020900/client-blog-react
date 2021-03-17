@@ -27,6 +27,7 @@ export const CommentContext = React.createContext({})
 function Post(props: any) {
     const [title, setTitle] = useState('Không có title')
     const [content, setContent] = useState("Không có nội dung")
+    const [tags, setTags] = useState([])
     const [content2, setContent2] = useState("Không có nội dung")
     const [userInfo, setUserInfo] = useState("Trần Quốc Cường")
     const [userAvt, setUserAvt] = useState("")
@@ -78,6 +79,7 @@ function Post(props: any) {
                 html.classList.add("content-outline", "list-unstyled", "text-left", "post-index-child")
                 setTitle(res.data.post.title)
                 setContent(res.data.post.content)
+                setTags(res.data.post.tags)
                 setUserAvt(res.data.post.avatar)
                 setUserInfo(res.data.post.username)
                 setCuid(res.data.post.cuid)
@@ -135,6 +137,10 @@ function Post(props: any) {
         props.history.push(`/profile?id=${cuid}`)
     }
 
+    const tags_render = tags?.map(tag => {
+        return (<span className={'mb-0 tags'}>#{tag}</span>)
+    }) 
+
     // @ts-ignore
     return (
         <div>
@@ -172,8 +178,9 @@ function Post(props: any) {
                     <div>
                         <Row className={'ml-2 mb-5'}>
                             <Col className={'col-md-10'}>
-                                <span className={'mb-0 tags'}>#vscode</span>
-                                <span className={'mb-0 tags'}>#javascript</span>
+                                {
+                                    tags_render
+                                }
                             </Col>
                             <Col className={'col-md-2'}>
                                 <FontAwesomeIcon id='post-action-menu' size="2x" className={'text-secondary'} icon={faEllipsisH} onClick={toggleEdit}></FontAwesomeIcon>
