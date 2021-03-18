@@ -97,7 +97,7 @@ function UpdatePost(props: any) {
                 >
                     <FontAwesomeIcon icon={faTrash}/>
                     <span> </span>
-                    Xoá Post</Button>
+                    Delete Post</Button>
                 <Button className={'mt-3 ml-3 btn-success mb-5'}
                         onClick={updatePost}
                 >

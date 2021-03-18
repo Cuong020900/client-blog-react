@@ -13,6 +13,7 @@ import Post from "../post/Post";
 import { StoreContext } from '../../utils/store';
 import QueryString from 'query-string'
 import axios from "axios";
+import UserClips from '../home/components/UserClips';
 
 function Profile(props: any) {
 
@@ -80,9 +81,9 @@ function Profile(props: any) {
                     <nav className="nav d-flex justify-content-start">
                         <Link className="p-2 link-secondary" to={`/profile?id=${userId}`}>Series</Link>
                         <Link className="p-2 link-secondary" to={`/profile/user-post?id=${userId}`}>Post</Link>
-                        <Link className="p-2 link-secondary" to="#">Questions</Link>
+                        <Link className="p-2 link-secondary" to={`/profile/clips`}>Clips</Link>
                         <Link className="p-2 link-secondary" to="#">Answers</Link>
-                        <Link className="p-2 link-secondary" to="#">Clips</Link>
+                        <Link className="p-2 link-secondary" to="#">Questions</Link>
                         <Link className="p-2 link-secondary" to="#">Followings</Link>
                         <Link className="p-2 link-secondary" to="#">Followers</Link>
                         <Link className="p-2 link-secondary" to="#">Tags</Link>
@@ -96,6 +97,8 @@ function Profile(props: any) {
                 <Col className={'col-md-9'}>
                     <Switch>
                         <Route path={`/profile/user-post`} component={UserPosts}>
+                        </Route>
+                        <Route exact path={`/profile/clips`} component={UserClips}>
                         </Route>
                         <Route path={`/profile`} component={UserPosts}>
                         </Route>

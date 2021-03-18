@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useState} from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import './App.css';
 import 'reactjs-popup/dist/index.css';
 import { ToastContainer } from 'react-toastify';
@@ -10,10 +10,13 @@ import './assets/css/blog.css'
 import {
     BrowserRouter as Router
 } from 'react-router-dom';
-import {StoreContext, storeContextDefaultValue} from './utils/store';
+import { StoreContext, storeContextDefaultValue } from './utils/store';
 import axios from "axios";
 // @ts-ignore
 import { ReactTitle } from 'react-meta-tags'
+// @ts-ignore
+import LoadingOverlay from 'react-loading-overlay';
+
 function App() {
 
     const [username, setUsername] = useState('')
@@ -21,6 +24,15 @@ function App() {
     const [userId, setUserId] = useState('')
     const [avatar, setAvatar] = useState('')
     const [name, setName] = useState('')
+    const [isLoading, setIsLoading] = useState(false)
+
+    const showLoading = () => {
+        setIsLoading(prev => true)
+    }
+
+    const hideLoading = () => {
+        setIsLoading(prev => false)
+    }
 
     let jwt = localStorage.getItem('jwt') || ''
     axios.defaults.headers.common['Authorization'] = 'Bearer ' + jwt
@@ -30,7 +42,7 @@ function App() {
             initStore.store.setName((e: any) => res.data.user.name)
             initStore.store.setLoggedIn((e: any) => true)
             initStore.store.setUserId((e: any) => res.data.user.id ?? "")
-            initStore.store.setAvatar((e: any) =>res.data.user.avatar ?? "")
+            initStore.store.setAvatar((e: any) => res.data.user.avatar ?? "")
         })
         .catch(err => console.error(err))
 
@@ -45,21 +57,30 @@ function App() {
             avatar: avatar,
             setAvatar: setAvatar,
             name: name,
-            setName: setName
+            setName: setName,
+            showLoading: showLoading,
+            hideLoading: hideLoading
         }
     }
 
-  return (
-      <StoreContext.Provider value={initStore}>
-          <div className="App">
-              <ReactTitle title="Viblo Pha ke"/>
-              <Router>
-                  <ToastContainer/>
-                  <ScrollToTop smooth/>
-                  <Home/>
-              </Router>
-          </div>
-      </StoreContext.Provider>
-  );
+    return (
+        <StoreContext.Provider value={initStore}>
+
+            <LoadingOverlay
+                active={isLoading}
+                spinner
+                text='Loading...'
+            >
+                <div className="App">
+                    <ReactTitle title="Viblo Pha ke" />
+                    <Router>
+                        <ToastContainer />
+                        <ScrollToTop smooth />
+                        <Home />
+                    </Router>
+                </div>
+            </LoadingOverlay>
+        </StoreContext.Provider>
+    );
 }
 export default App;

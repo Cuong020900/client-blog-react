@@ -14,13 +14,14 @@ import MDEditor from '@uiw/react-md-editor';
 import PostOverview from "../home/components/PostOverview";
 import PostRelated from "./related/PostRelated";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faEdit, faEllipsisH, faFlag } from '@fortawesome/free-solid-svg-icons'
+import { faEdit, faEllipsisH, faFlag, faSave } from '@fortawesome/free-solid-svg-icons'
 import { Link } from 'react-router-dom';
 import { StoreContext } from '../../utils/store';
 import CreateCommentBox from './comment/CreateCommentBox';
 import DisplayCommentBox from './comment/DisplayCommentBox';
 import { Redirect } from 'react-router-dom';
 import {withRouter} from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 export const CommentContext = React.createContext({})
 
@@ -141,6 +142,17 @@ function Post(props: any) {
         return (<span className={'mb-0 tags'}>#{tag}</span>)
     }) 
 
+    const clipPost = () => {
+        axios.post(`http://localhost:3000/clip-post`, {post: {post_id: +id}})
+            .then(res => {
+                toast.success('Success clip this post')
+            })
+            .catch(err => {
+                toast.error('Error while clip this post')
+                console.error(err)
+            })
+    }
+
     // @ts-ignore
     return (
         <div>
@@ -186,6 +198,16 @@ function Post(props: any) {
                                 <FontAwesomeIcon id='post-action-menu' size="2x" className={'text-secondary'} icon={faEllipsisH} onClick={toggleEdit}></FontAwesomeIcon>
                                 <Popover placement="bottom" isOpen={popoverOpen} target="post-action-menu" className={'popover'} toggle={toggle}>
                                     <PopoverBody className={'p-0'}>
+                                        <div className={'item'}>
+                                            <a className="p-0 text-decoration-none text-secondary" href={"javascript:void(0);"}
+                                                onClick={e => {
+                                                    clipPost()
+                                                }}
+                                            >
+                                                <FontAwesomeIcon size={'sm'} icon={faSave}></FontAwesomeIcon>
+                                                <span className={'ml-2'}>Clip this post</span>
+                                            </a>
+                                        </div>
                                         <div className={'item'}>
                                             <Link className="p-0 text-decoration-none text-secondary" to={`/report-post?id=${id}`}>
                                                 <FontAwesomeIcon size={'sm'} icon={faFlag}></FontAwesomeIcon>

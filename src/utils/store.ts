@@ -11,6 +11,8 @@ interface Store {
     avatar: string;
     setAvatar: any;
     setName: any;
+    showLoading: any;
+    hideLoading: any;
 }
 
 export interface StoreContextData {
